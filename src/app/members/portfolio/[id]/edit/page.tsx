@@ -47,6 +47,7 @@ export default async function EditPortfolioPage({ params }: EditPortfolioPagePro
           category: project.category,
           imageUrl: project.imageUrl || "",
           link: project.link || "",
+          technologies: project.technologies || "",
         }}
         projectId={project.id}
         submitLabel="Atualizar Projeto"

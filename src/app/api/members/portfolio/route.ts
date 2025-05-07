@@ -42,9 +42,9 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, description, category, imageUrl, link } = body;
+    const { title, description, category, imageUrl, link, technologies } = body;
 
-    if (!title || !description || !category) {
+    if (!title || !description || !category || !technologies) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -55,6 +55,7 @@ export async function POST(request: Request) {
         category,
         imageUrl,
         link,
+        technologies,
         authorId: session.user.id,
       },
       include: {
@@ -102,9 +103,9 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
-    const { title, description, category, imageUrl, link } = body;
+    const { title, description, category, imageUrl, link, technologies } = body;
 
-    if (!title || !description || !category) {
+    if (!title || !description || !category || !technologies) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -116,6 +117,7 @@ export async function PUT(request: Request) {
         category,
         imageUrl,
         link,
+        technologies,
       },
       include: {
         author: {

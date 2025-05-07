@@ -32,7 +32,9 @@ CREATE TABLE "User" (
     "emailVerified" DATETIME,
     "image" TEXT,
     "password" TEXT,
-    "role" TEXT NOT NULL DEFAULT 'READER'
+    "role" TEXT NOT NULL DEFAULT 'READER',
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
 );
 
 -- CreateTable
@@ -61,6 +63,7 @@ CREATE TABLE "Portfolio" (
     "description" TEXT NOT NULL,
     "imageUrl" TEXT,
     "category" TEXT NOT NULL,
+    "link" TEXT NOT NULL,
     "technologies" TEXT NOT NULL,
     "publishedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "authorId" TEXT NOT NULL,
@@ -71,12 +74,12 @@ CREATE TABLE "Portfolio" (
 CREATE TABLE "File" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "size" INTEGER NOT NULL,
-    "uploadedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "uploadedById" TEXT NOT NULL,
-    CONSTRAINT "File_uploadedById_fkey" FOREIGN KEY ("uploadedById") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "path" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "authorId" TEXT NOT NULL,
+    CONSTRAINT "File_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 type FileFormData = {
   name: string;
-  description: string;
-  url: string;
   type: string;
+  size: number;
+  path: string;
 };
 
 export default function FileForm() {
@@ -16,9 +16,9 @@ export default function FileForm() {
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FileFormData>({
     name: "",
-    description: "",
-    url: "",
     type: "",
+    size: 0,
+    path: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -116,51 +116,50 @@ export default function FileForm() {
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="url"
+                htmlFor="path"
                 className="block text-sm font-medium text-gray-300"
               >
-                URL do Arquivo
+                Caminho do Arquivo
               </label>
               <div className="mt-1">
                 <input
-                  type="url"
-                  name="url"
-                  id="url"
+                  type="text"
+                  name="path"
+                  id="path"
                   required
-                  value={formData.url}
+                  value={formData.path}
                   onChange={(e) =>
-                    setFormData({ ...formData, url: e.target.value })
+                    setFormData({ ...formData, path: e.target.value })
                   }
                   className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 />
               </div>
               <p className="mt-2 text-sm text-gray-400">
-                URL onde o arquivo está hospedado
+                Caminho onde o arquivo está armazenado
               </p>
             </div>
 
-            <div className="sm:col-span-6">
+            <div className="sm:col-span-4">
               <label
-                htmlFor="description"
+                htmlFor="size"
                 className="block text-sm font-medium text-gray-300"
               >
-                Descrição
+                Tamanho (em bytes)
               </label>
               <div className="mt-1">
-                <textarea
-                  id="description"
-                  name="description"
-                  rows={4}
-                  value={formData.description}
+                <input
+                  type="number"
+                  name="size"
+                  id="size"
+                  required
+                  min="0"
+                  value={formData.size}
                   onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
+                    setFormData({ ...formData, size: parseInt(e.target.value, 10) })
                   }
                   className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 />
               </div>
-              <p className="mt-2 text-sm text-gray-400">
-                Descrição do arquivo (opcional)
-              </p>
             </div>
           </div>
         </div>

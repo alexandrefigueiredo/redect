@@ -1,171 +1,124 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { prisma } from "@/lib/prisma";
+import Link from "next/link";
+import { EmptyState } from "@/components/EmptyState";
 
-export default function PortfolioPage() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow">
-        <div className="bg-indigo-700">
-          <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
-                Portfólio
-              </h1>
-              <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
-                Conheça nossos projetos e cases de sucesso.
-              </p>
+export default async function PortfolioPage() {
+  try {
+    // Get unique categories from portfolios
+    const categories = await prisma.portfolio.findMany({
+      select: {
+        category: true,
+      },
+      distinct: ['category'],
+      orderBy: {
+        category: 'asc',
+      },
+    });
+
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow">
+          <div className="bg-indigo-700">
+            <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
+                  Portfólio
+                </h1>
+                <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+                  Explore nossos recursos e materiais organizados por categoria
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Filtros e Lista de Projetos */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Filtros */}
-          <div className="mb-8 flex flex-wrap gap-4">
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-              Todos
-            </button>
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
-              Desenvolvimento
-            </button>
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
-              Design
-            </button>
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
-              Consultoria
-            </button>
-          </div>
-
-          {/* Lista de Projetos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Projeto 1 */}
-            <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f"
-                alt="Projeto 1"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-sm text-indigo-600 mb-2">Desenvolvimento</div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Sistema de Gestão Empresarial
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Desenvolvimento de um sistema completo para gestão de empresas,
-                  incluindo módulos de RH, financeiro e vendas.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    React
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Node.js
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    PostgreSQL
-                  </span>
+          {/* Lista de Categorias */}
+          <div className="bg-white">
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+              {categories.length === 0 ? (
+                <EmptyState
+                  title="Nenhuma categoria disponível"
+                  description="Ainda não há categorias cadastradas no portfólio."
+                  icon={
+                    <svg
+                      className="mx-auto h-12 w-12 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                      />
+                    </svg>
+                  }
+                />
+              ) : (
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {categories.map(({ category }) => (
+                    <Link
+                      key={category}
+                      href={`/portfolio/${encodeURIComponent(category)}`}
+                      className="group"
+                    >
+                      <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <div className="p-6">
+                          <h3 className="text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                            {category}
+                          </h3>
+                          <div className="mt-4 flex items-center text-indigo-600 group-hover:text-indigo-500">
+                            <span className="text-sm font-medium">Explorar categoria</span>
+                            <svg
+                              className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-                <a
-                  href="#"
-                  className="text-indigo-600 hover:text-indigo-700 font-medium"
-                >
-                  Ver detalhes →
-                </a>
-              </div>
-            </article>
-
-            {/* Projeto 2 */}
-            <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692"
-                alt="Projeto 2"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-sm text-indigo-600 mb-2">Design</div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Redesign de E-commerce
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Redesign completo de uma plataforma de e-commerce, focando na
-                  experiência do usuário e conversão.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    UI/UX
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Figma
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Adobe XD
-                  </span>
-                </div>
-                <a
-                  href="#"
-                  className="text-indigo-600 hover:text-indigo-700 font-medium"
-                >
-                  Ver detalhes →
-                </a>
-              </div>
-            </article>
-
-            {/* Projeto 3 */}
-            <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978"
-                alt="Projeto 3"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-sm text-indigo-600 mb-2">Consultoria</div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Transformação Digital
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Consultoria para transformação digital de uma empresa
-                  tradicional, incluindo mudanças de processos e cultura.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Estratégia
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Processos
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                    Cultura
-                  </span>
-                </div>
-                <a
-                  href="#"
-                  className="text-indigo-600 hover:text-indigo-700 font-medium"
-                >
-                  Ver detalhes →
-                </a>
-              </div>
-            </article>
+              )}
+            </div>
           </div>
-
-          {/* CTA Section */}
-          <div className="mt-16 bg-indigo-50 rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Tem um projeto em mente?
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Vamos trabalhar juntos para transformar sua ideia em realidade.
-            </p>
-            <a
-              href="/contato"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              Fale Conosco
-            </a>
+        </main>
+        <Footer />
+      </div>
+    );
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow">
+          <div className="bg-white">
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold text-gray-900 mb-4">
+                  Erro ao carregar categorias
+                </h1>
+                <p className="text-gray-600">
+                  Desculpe, ocorreu um erro ao carregar as categorias. Por favor, tente novamente mais tarde.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 } 

@@ -11,92 +11,144 @@ export default function SobrePage() {
           <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
-                Sobre a Rede CT
+                Quem Somos
               </h1>
               <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
-                Conectando pessoas e ideias para transformar o futuro da tecnologia.
+                Uma rede independente que reúne pesquisadores e Povos Tradicionais para fortalecer a produção científica e o diálogo intercultural.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Missão e Visão */}
+        {/* História */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Nossa Missão</h2>
-                <p className="text-lg text-gray-600">
-                  Promover a integração e o desenvolvimento da comunidade de tecnologia,
-                  fomentando a troca de conhecimentos e experiências entre profissionais
-                  da área.
-                </p>
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Nossa Visão</h2>
-                <p className="text-lg text-gray-600">
-                  Ser referência nacional em networking e desenvolvimento profissional
-                  na área de tecnologia, conectando pessoas e empresas para criar
-                  um ecossistema inovador e sustentável.
-                </p>
-              </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Nossa História</h2>
+            <div className="prose prose-lg max-w-none">
+              <p>
+                A RedeCT tem suas origens na SocialDHC, criada em 2002, e foi institucionalizada em 2021. 
+                Ao longo de sua trajetória, a rede tem se dedicado a promover a integração entre a academia 
+                e os Povos Tradicionais, contribuindo para o fortalecimento das relações interculturais e 
+                para a produção de conhecimento científico de qualidade.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Valores */}
+        {/* Eixos Temáticos */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Nossos Valores
+              Eixos Temáticos Permanentes (ETPs)
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Inovação</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Pesquisa</h3>
                 <p className="text-gray-600">
-                  Buscamos constantemente novas soluções e abordagens para os
-                  desafios tecnológicos.
+                  Desenvolvimento de pesquisas colaborativas com Povos Tradicionais.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Colaboração</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Ensino</h3>
                 <p className="text-gray-600">
-                  Acreditamos no poder da união e no compartilhamento de
-                  conhecimentos.
+                  Formação acadêmica e intercâmbio de conhecimentos tradicionais.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Excelência</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Extensão</h3>
                 <p className="text-gray-600">
-                  Comprometimento com a qualidade e o desenvolvimento contínuo.
+                  Projetos de extensão universitária em parceria com comunidades tradicionais.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Equipe */}
+        {/* Categorias de Pesquisadores */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Nossa Equipe
+              Categorias de Pesquisadores
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-200"></div>
-                <h3 className="text-xl font-semibold mb-2">João Silva</h3>
-                <p className="text-gray-600">Presidente</p>
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Pesquisador Sênior</h3>
+                <p className="text-gray-600">
+                  Pesquisadores com ampla experiência e produção acadêmica consolidada.
+                </p>
               </div>
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-200"></div>
-                <h3 className="text-xl font-semibold mb-2">Maria Santos</h3>
-                <p className="text-gray-600">Diretora de Tecnologia</p>
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Pesquisador</h3>
+                <p className="text-gray-600">
+                  Pesquisadores em atividade com produção acadêmica em desenvolvimento.
+                </p>
               </div>
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-200"></div>
-                <h3 className="text-xl font-semibold mb-2">Pedro Oliveira</h3>
-                <p className="text-gray-600">Diretor de Comunicação</p>
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Pesquisador Júnior</h3>
+                <p className="text-gray-600">
+                  Pesquisadores em formação, incluindo estudantes de graduação e pós-graduação.
+                </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Parceiros */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+              Parceiros e Financiadores
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Instituições de Ensino</h3>
+                <p className="text-gray-600">
+                  Universidades e centros de pesquisa parceiros.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Organizações</h3>
+                <p className="text-gray-600">
+                  Organizações não-governamentais e instituições de fomento.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Comunidades</h3>
+                <p className="text-gray-600">
+                  Comunidades tradicionais e organizações indígenas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Controle Social */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+              Controle Social e Transparência
+            </h2>
+            <div className="prose prose-lg max-w-none">
+              <p>
+                A RedeCT mantém um compromisso com a transparência e o controle social de suas atividades. 
+                Todas as ações são desenvolvidas com base em princípios éticos e de responsabilidade social, 
+                garantindo a participação efetiva dos Povos Tradicionais nas decisões que os afetam.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Instituto */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+              Instituto de Pesquisas Amazônicas e de Povos Tradicionais
+            </h2>
+            <div className="prose prose-lg max-w-none">
+              <p>
+                A RedeCT é mantida pelo Instituto de Pesquisas Amazônicas e de Povos Tradicionais, 
+                uma OSCIP dedicada ao desenvolvimento de pesquisas e ações em parceria com Povos Tradicionais.
+              </p>
             </div>
           </div>
         </section>

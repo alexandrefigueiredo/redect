@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 type FileWithAuthor = {
   id: string;
   name: string;
-  description: string | null;
-  url: string;
+  type: string;
+  size: number;
+  path: string;
   createdAt: Date;
   author: {
     name: string | null;
@@ -49,6 +50,14 @@ export default function FileListItem({ file, isAuthor }: FileListItemProps) {
     }
   };
 
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
   return (
     <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -59,18 +68,21 @@ export default function FileListItem({ file, isAuthor }: FileListItemProps) {
           {new Date(file.createdAt).toLocaleDateString("pt-BR")}
         </span>
       </div>
-      {file.description && (
-        <p className="text-gray-300 mb-4">
-          {file.description}
-        </p>
-      )}
+      <div className="flex items-center gap-4 mb-4">
+        <span className="inline-block bg-blue-900 text-blue-100 text-sm font-semibold px-3 py-1 rounded-full">
+          {file.type}
+        </span>
+        <span className="text-sm text-gray-400">
+          {formatFileSize(file.size)}
+        </span>
+      </div>
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-400">
           Por {file.author.name}
         </span>
         <div className="flex space-x-4">
           <a
-            href={file.url}
+            href={file.path}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:text-blue-300"

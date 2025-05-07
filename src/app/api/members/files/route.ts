@@ -43,17 +43,18 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, description, url } = body;
+    const { name, type, size, path } = body;
 
-    if (!name || !url) {
+    if (!name || !type || !path || size === undefined) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
     const file = await prisma.file.create({
       data: {
         name,
-        description,
-        url,
+        type,
+        size,
+        path,
         authorId: session.user.id,
       },
       include: {

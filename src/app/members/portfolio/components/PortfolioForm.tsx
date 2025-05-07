@@ -9,6 +9,7 @@ type PortfolioFormData = {
   category: string;
   imageUrl: string;
   link: string;
+  technologies: string;
 };
 
 type PortfolioFormProps = {
@@ -32,6 +33,7 @@ export default function PortfolioForm({
       category: "",
       imageUrl: "",
       link: "",
+      technologies: "",
     }
   );
 
@@ -124,11 +126,15 @@ export default function PortfolioForm({
                   className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 >
                   <option value="">Selecione uma categoria</option>
-                  <option value="web">Desenvolvimento Web</option>
-                  <option value="mobile">Desenvolvimento Mobile</option>
-                  <option value="design">Design</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="outros">Outros</option>
+                  <option value="Legislações">Legislações</option>
+                  <option value="Mapas">Mapas</option>
+                  <option value="Povos Originários">Povos Originários</option>
+                  <option value="Comunidades Tradicionais">Comunidades Tradicionais</option>
+                  <option value="Grupos de Pesquisa">Grupos de Pesquisa</option>
+                  <option value="Redes e Coletivos">Redes e Coletivos</option>
+                  <option value="Museus">Museus</option>
+                  <option value="Destaques">Destaques</option>
+                  <option value="Centro de Referência">Centro de Referência</option>
                 </select>
               </div>
             </div>
@@ -178,6 +184,31 @@ export default function PortfolioForm({
               </div>
               <p className="mt-2 text-sm text-gray-400">
                 URL do projeto (opcional)
+              </p>
+            </div>
+
+            <div className="sm:col-span-6">
+              <label
+                htmlFor="technologies"
+                className="block text-sm font-medium text-gray-300"
+              >
+                Tecnologias
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="technologies"
+                  id="technologies"
+                  required
+                  value={formData.technologies}
+                  onChange={(e) =>
+                    setFormData({ ...formData, technologies: e.target.value })
+                  }
+                  className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                />
+              </div>
+              <p className="mt-2 text-sm text-gray-400">
+                Lista de tecnologias separadas por vírgula (ex: React, Node.js, TypeScript)
               </p>
             </div>
 

@@ -11,6 +11,7 @@ type PortfolioWithAuthor = {
   imageUrl: string | null;
   category: string;
   link: string | null;
+  technologies: string;
   publishedAt: Date;
   author: {
     name: string | null;
@@ -80,21 +81,21 @@ export default function PortfolioListItem({ project, isAuthor }: PortfolioListIt
             ? `${project.description.substring(0, 150)}...`
             : project.description}
         </p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.split(',').map((tech, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-blue-900 text-blue-100 rounded-full text-sm"
+            >
+              {tech.trim()}
+            </span>
+          ))}
+        </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-400">
             Por {project.author.name}
           </span>
           <div className="flex space-x-4">
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300"
-              >
-                Ver Projeto
-              </a>
-            )}
             {isAuthor && (
               <>
                 <Link
