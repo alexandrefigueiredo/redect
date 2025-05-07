@@ -22,6 +22,12 @@ export default async function MembersLayout({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
               <Link
+                  href="/members"
+                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
+                >
+                Área de Membros
+              </Link>
+              <Link
                 href="/members/news"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >

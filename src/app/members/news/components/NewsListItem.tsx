@@ -13,7 +13,7 @@ type NewsWithAuthor = {
   publishedAt: Date;
   author: {
     name: string | null;
-    email: string;
+    email: string | null;
   };
 };
 
