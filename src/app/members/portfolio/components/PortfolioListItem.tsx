@@ -66,7 +66,7 @@ export default function PortfolioListItem({ project, isAuthor }: PortfolioListIt
       )}
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-block bg-blue-900 text-blue-100 text-sm font-semibold px-3 py-1 rounded-full">
+          <span className="inline-block bg-[#BE382A] text-white text-sm font-semibold px-3 py-1 rounded-full">
             {project.category}
           </span>
           <span className="text-sm text-gray-400">
@@ -85,7 +85,7 @@ export default function PortfolioListItem({ project, isAuthor }: PortfolioListIt
           {project.technologies.split(',').map((tech, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-blue-900 text-blue-100 rounded-full text-sm"
+              className="px-3 py-1 bg-[#BE382A] text-white rounded-full text-sm"
             >
               {tech.trim()}
             </span>
@@ -100,7 +100,7 @@ export default function PortfolioListItem({ project, isAuthor }: PortfolioListIt
               <>
                 <Link
                   href={`/members/portfolio/${project.id}/edit`}
-                  className="text-blue-400 hover:text-blue-300"
+                  className="text-[#BE382A] hover:text-[#A32E22]"
                 >
                   Editar
                 </Link>

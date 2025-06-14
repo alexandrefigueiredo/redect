@@ -7,13 +7,13 @@ export default function ContatoPage() {
       <Header />
       <main className="flex-grow">
         {/* Hero Section */}
-        <div className="bg-indigo-700">
+        <div className="bg-[#BE382A]">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
                 Contato
               </h1>
-              <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+              <p className="mt-6 max-w-2xl mx-auto text-xl text-white/90">
                 Entre em contato com a RedeCT para mais informações.
               </p>
             </div>
@@ -32,7 +32,7 @@ export default function ContatoPage() {
                   <div>
                     <h3 className="text-lg font-medium text-gray-900">Email</h3>
                     <p className="mt-2 text-gray-600">
-                      <a href="mailto:contato@redect.org" className="text-indigo-600 hover:text-indigo-700">
+                      <a href="mailto:contato@redect.org" className="text-[#BE382A] hover:text-[#A32E22]">
                         contato@redect.org
                       </a>
                     </p>
@@ -44,13 +44,13 @@ export default function ContatoPage() {
                         Siga-nos nas redes sociais para ficar por dentro das novidades:
                       </p>
                       <div className="flex space-x-4">
-                        <a href="#" className="text-gray-600 hover:text-indigo-600">
+                        <a href="#" className="text-gray-600 hover:text-[#BE382A]">
                           Facebook
                         </a>
-                        <a href="#" className="text-gray-600 hover:text-indigo-600">
+                        <a href="#" className="text-gray-600 hover:text-[#BE382A]">
                           Instagram
                         </a>
-                        <a href="#" className="text-gray-600 hover:text-indigo-600">
+                        <a href="#" className="text-gray-600 hover:text-[#BE382A]">
                           Twitter
                         </a>
                       </div>

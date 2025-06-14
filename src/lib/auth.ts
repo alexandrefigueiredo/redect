@@ -1,28 +1,27 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "./prisma";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Email e senha são obrigatórios");
+          return null;
         }
 
         const user = await prisma.user.findUnique({
@@ -31,24 +30,26 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user.password) {
-          throw new Error("Usuário não encontrado");
+        if (!user) {
+          return null;
         }
 
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
+        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
 
-        if (!isCorrectPassword) {
-          throw new Error("Senha incorreta");
+        if (!isPasswordValid) {
+          return null;
         }
 
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          name: `${user.firstName} ${user.lastName}`,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          image: user.image,
           role: user.role,
+          cpf: user.cpf,
+          birthDate: user.birthDate,
         };
       },
     }),
@@ -56,25 +57,31 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
-        token.id = user.id;
+        return {
+          ...token,
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+          cpf: user.cpf,
+          birthDate: user.birthDate,
+        };
       }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
-      }
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          firstName: token.firstName,
+          lastName: token.lastName,
+          role: token.role,
+          cpf: token.cpf,
+          birthDate: token.birthDate,
+        },
+      };
     },
   },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
-  session: {
-    strategy: "jwt",
-  },
-  debug: process.env.NODE_ENV === "development",
 }; 

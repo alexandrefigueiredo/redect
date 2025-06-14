@@ -43,7 +43,7 @@ export function Pagination({ currentPage, totalPages, baseUrl }: PaginationProps
           onClick={() => handlePageChange(i)}
           className={`px-4 py-2 rounded-md ${
             currentPage === i
-              ? "bg-blue-600 text-white"
+              ? "bg-[#BE382A] text-white"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           }`}
         >

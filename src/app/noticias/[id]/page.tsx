@@ -45,7 +45,7 @@ export default async function NewsArticlePage({
         <article className="max-w-4xl mx-auto px-4 py-12">
           <header className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">
+              <span className="inline-block bg-[#BE382A]/10 text-[#BE382A] text-sm font-semibold px-3 py-1 rounded-full">
                 {news.category}
               </span>
               <span className="text-sm text-gray-500">

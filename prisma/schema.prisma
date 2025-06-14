@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -5,6 +8,28 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  firstName     String?
+  lastName      String?
+  cpf           String?   @unique
+  birthDate     DateTime?
+  role          String    @default("USER")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  news          News[]
+  portfolio     Portfolio[]
+  files         File[]
+  resetTokens   PasswordResetToken[]
 }
 
 model Account {
@@ -20,7 +45,8 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -33,29 +59,21 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String?     @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          String      @default("READER")
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  accounts      Account[]
-  files         File[]
-  news          News[]
-  portfolios    Portfolio[]
-  sessions      Session[]
-}
-
 model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expires   DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
 model News {
@@ -75,20 +93,22 @@ model Portfolio {
   description  String
   imageUrl     String?
   category     String
-  link         String
   technologies String
+  link         String?
   publishedAt  DateTime @default(now())
   authorId     String
   author       User     @relation(fields: [authorId], references: [id])
 }
 
 model File {
-  id        String   @id @default(cuid())
-  name      String
-  type      String
-  size      Int
-  path      String
-  createdAt DateTime @default(now())
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  url         String
+  type        String
+  size        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
 }

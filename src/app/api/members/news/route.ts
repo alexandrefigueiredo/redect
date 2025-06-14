@@ -34,6 +34,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
+  console.log("Session:", session);
 
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 });
@@ -42,9 +43,21 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { title, content, category, imageUrl } = body;
+    console.log("Request body:", { title, content, category, imageUrl });
+    console.log("User ID:", session.user.id);
 
     if (!title || !content || !category) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    // Verificar se o usuário existe
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id }
+    });
+    console.log("User found:", user);
+
+    if (!user) {
+      return new NextResponse("User not found", { status: 404 });
     }
 
     const news = await prisma.news.create({

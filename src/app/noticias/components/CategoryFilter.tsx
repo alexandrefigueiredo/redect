@@ -40,7 +40,7 @@ export function CategoryFilter({ categories }: CategoryFilterProps) {
         onClick={() => handleCategoryClick(null)}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
           !currentCategory
-            ? "bg-blue-600 text-white"
+            ? "bg-[#BE382A] text-white"
             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
         }`}
       >
@@ -52,7 +52,7 @@ export function CategoryFilter({ categories }: CategoryFilterProps) {
           onClick={() => handleCategoryClick(category)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             category === currentCategory
-              ? "bg-blue-600 text-white"
+              ? "bg-[#BE382A] text-white"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           }`}
         >

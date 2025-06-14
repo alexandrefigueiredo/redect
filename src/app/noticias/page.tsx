@@ -60,13 +60,13 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
-          <div className="bg-indigo-700">
+          <div className="bg-[#BE382A]">
             <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
               <div className="text-center">
                 <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
                   Notícias
                 </h1>
-                <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+                <p className="mt-6 max-w-2xl mx-auto text-xl text-white/90">
                   Fique por dentro das últimas novidades
                 </p>
               </div>
@@ -84,7 +84,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                       name="search"
                       defaultValue={search}
                       placeholder="Buscar notícias..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE382A] focus:border-[#BE382A]"
                     />
                     <button
                       type="submit"
@@ -112,7 +112,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                     href={`/noticias${search ? `?search=${search}` : ''}`}
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
                       !category
-                        ? 'bg-indigo-600 text-white'
+                        ? 'bg-[#BE382A] text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
@@ -126,7 +126,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                       }`}
                       className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
                         category === cat
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-[#BE382A] text-white'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                     >
@@ -186,14 +186,14 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                           )}
                           <div className="p-6">
                             <div className="flex items-center justify-between mb-2">
-                              <span className="inline-block bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
+                              <span className="inline-block bg-[#BE382A]/10 text-[#BE382A] text-sm font-medium px-3 py-1 rounded-full">
                                 {item.category}
                               </span>
                               <span className="text-sm text-gray-500">
                                 {new Date(item.publishedAt).toLocaleDateString('pt-BR')}
                               </span>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                            <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#BE382A] transition-colors duration-300">
                               {item.title}
                             </h3>
                             <p className="mt-2 text-gray-600 line-clamp-3">
@@ -220,7 +220,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                             }${category ? `&category=${category}` : ''}`}
                             className={`px-4 py-2 rounded-md text-sm font-medium ${
                               pageNum === page
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-[#BE382A] text-white'
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
                           >

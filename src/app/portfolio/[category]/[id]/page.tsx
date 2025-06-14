@@ -36,19 +36,19 @@ export default async function ItemPage({ params }: ItemPageProps) {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
-          <div className="bg-indigo-700">
+          <div className="bg-[#BE382A]">
             <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
               <div className="text-center">
                 <Link
                   href={`/portfolio/${encodeURIComponent(category)}`}
-                  className="text-indigo-200 hover:text-white mb-4 inline-block"
+                  className="text-white/90 hover:text-white mb-4 inline-block"
                 >
                   ← Voltar para {category}
                 </Link>
                 <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
                   {item.title}
                 </h1>
-                <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+                <p className="mt-6 max-w-2xl mx-auto text-xl text-white/90">
                   {item.description}
                 </p>
               </div>
@@ -74,7 +74,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
                     {item.technologies.split(',').map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm"
+                        className="px-3 py-1 bg-[#BE382A]/10 text-[#BE382A] rounded-full text-sm"
                       >
                         {tech.trim()}
                       </span>

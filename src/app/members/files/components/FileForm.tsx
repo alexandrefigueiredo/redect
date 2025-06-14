@@ -7,7 +7,7 @@ type FileFormData = {
   name: string;
   type: string;
   size: number;
-  path: string;
+  url: string;
 };
 
 export default function FileForm() {
@@ -18,8 +18,22 @@ export default function FileForm() {
     name: "",
     type: "",
     size: 0,
-    path: "",
+    url: "",
   });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setFormData(prev => ({
+        ...prev,
+        name: file.name,
+        type: file.type || "document",
+        size: file.size
+      }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,12 +41,37 @@ export default function FileForm() {
     setError(null);
 
     try {
+      if (!selectedFile) {
+        throw new Error("Please select a file first");
+      }
+
+      // First, upload the file
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", selectedFile);
+
+      const uploadResponse = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload file");
+      }
+
+      const { url } = await uploadResponse.json();
+
+      // Then, create the file record
       const response = await fetch("/api/members/files", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          type: formData.type,
+          size: formData.size,
+          url: url,
+        }),
       });
 
       if (!response.ok) {
@@ -66,22 +105,24 @@ export default function FileForm() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
-                htmlFor="name"
+                htmlFor="file"
                 className="block text-sm font-medium text-gray-300"
               >
-                Nome do Arquivo
+                Arquivo
               </label>
               <div className="mt-1">
                 <input
-                  type="text"
-                  name="name"
-                  id="name"
+                  type="file"
+                  name="file"
+                  id="file"
                   required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  onChange={handleFileChange}
+                  className="block w-full text-sm text-gray-400
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-md file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-600 file:text-white
+                    hover:file:bg-blue-700"
                 />
               </div>
             </div>
@@ -111,54 +152,6 @@ export default function FileForm() {
                   <option value="audio">Áudio</option>
                   <option value="other">Outro</option>
                 </select>
-              </div>
-            </div>
-
-            <div className="sm:col-span-6">
-              <label
-                htmlFor="path"
-                className="block text-sm font-medium text-gray-300"
-              >
-                Caminho do Arquivo
-              </label>
-              <div className="mt-1">
-                <input
-                  type="text"
-                  name="path"
-                  id="path"
-                  required
-                  value={formData.path}
-                  onChange={(e) =>
-                    setFormData({ ...formData, path: e.target.value })
-                  }
-                  className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                />
-              </div>
-              <p className="mt-2 text-sm text-gray-400">
-                Caminho onde o arquivo está armazenado
-              </p>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="size"
-                className="block text-sm font-medium text-gray-300"
-              >
-                Tamanho (em bytes)
-              </label>
-              <div className="mt-1">
-                <input
-                  type="number"
-                  name="size"
-                  id="size"
-                  required
-                  min="0"
-                  value={formData.size}
-                  onChange={(e) =>
-                    setFormData({ ...formData, size: parseInt(e.target.value, 10) })
-                  }
-                  className="block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                />
               </div>
             </div>
           </div>

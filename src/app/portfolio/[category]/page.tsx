@@ -36,12 +36,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-grow">
-            <div className="bg-indigo-700">
+            <div className="bg-[#BE382A]">
               <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
                 <div className="text-center">
                   <Link
                     href="/portfolio"
-                    className="text-indigo-200 hover:text-white mb-4 inline-block"
+                    className="text-white/90 hover:text-white mb-4 inline-block"
                   >
                     ← Voltar para Categorias
                   </Link>
@@ -85,19 +85,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
-          <div className="bg-indigo-700">
+          <div className="bg-[#BE382A]">
             <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
               <div className="text-center">
                 <Link
                   href="/portfolio"
-                  className="text-indigo-200 hover:text-white mb-4 inline-block"
+                  className="text-white/90 hover:text-white mb-4 inline-block"
                 >
                   ← Voltar para Categorias
                 </Link>
                 <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
                   {category}
                 </h1>
-                <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+                <p className="mt-6 max-w-2xl mx-auto text-xl text-white/90">
                   Explore os itens desta categoria
                 </p>
               </div>
@@ -125,7 +125,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         </div>
                       )}
                       <div className="p-6">
-                        <h3 className="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                        <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#BE382A] transition-colors duration-300">
                           {item.title}
                         </h3>
                         <p className="mt-2 text-gray-600 line-clamp-3">
@@ -135,7 +135,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           {item.technologies.split(',').map((tech, index) => (
                             <span
                               key={index}
-                              className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs"
+                              className="px-2 py-1 bg-[#BE382A]/10 text-[#BE382A] rounded-full text-xs"
                             >
                               {tech.trim()}
                             </span>

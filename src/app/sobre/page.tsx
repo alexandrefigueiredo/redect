@@ -7,13 +7,13 @@ export default function SobrePage() {
       <Header />
       <main className="flex-grow">
         {/* Hero Section */}
-        <div className="bg-indigo-700">
+        <div className="bg-[#BE382A]">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
                 Quem Somos
               </h1>
-              <p className="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+              <p className="mt-6 max-w-2xl mx-auto text-xl text-white/90">
                 Uma rede independente que reúne pesquisadores e Povos Tradicionais para fortalecer a produção científica e o diálogo intercultural.
               </p>
             </div>

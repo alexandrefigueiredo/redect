@@ -26,6 +26,8 @@ export default function NewsListItem({ news, isAuthor }: NewsListItemProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
+  console.log(news)
+
   const handleDelete = async () => {
     if (!confirm("Tem certeza que deseja excluir esta notícia?")) {
       return;
@@ -64,7 +66,7 @@ export default function NewsListItem({ news, isAuthor }: NewsListItemProps) {
       )}
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-block bg-blue-900 text-blue-100 text-sm font-semibold px-3 py-1 rounded-full">
+          <span className="inline-block bg-[#BE382A] text-white text-sm font-semibold px-3 py-1 rounded-full">
             {news.category}
           </span>
           <span className="text-sm text-gray-400">
@@ -85,7 +87,7 @@ export default function NewsListItem({ news, isAuthor }: NewsListItemProps) {
             <div className="flex space-x-2">
               <Link
                 href={`/members/news/${news.id}/edit`}
-                className="text-blue-400 hover:text-blue-300"
+                className="text-[#BE382A] hover:text-[#A32E22]"
               >
                 Editar
               </Link>

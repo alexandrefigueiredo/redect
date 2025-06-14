@@ -1,15 +1,19 @@
 import Link from "next/link";
+import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="bg-gray-800">
+    <footer className="bg-[#1C1C1C]">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
+            <Image
+              src="/assets/img/redect-white.png"
+              alt="Logo RedeCT"
+              width={80}
+              height={80}
+            />
             <h3 className="text-white text-lg font-semibold mb-4">Rede CT</h3>
-            <p className="text-gray-300">
-              Conectando pessoas e ideias para transformar o futuro da tecnologia.
-            </p>
           </div>
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">Links Rápidos</h3>

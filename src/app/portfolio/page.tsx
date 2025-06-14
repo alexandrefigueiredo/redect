@@ -21,7 +21,7 @@ export default async function PortfolioPage() {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
-          <div className="bg-indigo-700">
+          <div className="bg-[#BE382A]">
             <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
               <div className="text-center">
                 <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
@@ -67,10 +67,10 @@ export default async function PortfolioPage() {
                     >
                       <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="p-6">
-                          <h3 className="text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                          <h3 className="text-2xl font-semibold text-gray-900 group-hover:text-[#BE382A] transition-colors duration-300">
                             {category}
                           </h3>
-                          <div className="mt-4 flex items-center text-indigo-600 group-hover:text-indigo-500">
+                          <div className="mt-4 flex items-center text-[#BE382A] group-hover:text-[#BE382A]">
                             <span className="text-sm font-medium">Explorar categoria</span>
                             <svg
                               className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-300"

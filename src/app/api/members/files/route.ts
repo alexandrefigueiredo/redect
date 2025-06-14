@@ -36,6 +36,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
+  console.log("Session:", session);
 
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 });
@@ -43,18 +44,31 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, type, size, path } = body;
+    const { name, description, url, type, size } = body;
+    console.log("Request body:", { name, description, url, type, size });
+    console.log("User ID:", session.user.id);
 
-    if (!name || !type || !path || size === undefined) {
+    if (!name || !url || !type || !size) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    // Verificar se o usuário existe
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id }
+    });
+    console.log("User found:", user);
+
+    if (!user) {
+      return new NextResponse("User not found", { status: 404 });
     }
 
     const file = await prisma.file.create({
       data: {
         name,
+        description: description || null,
+        url,
         type,
         size,
-        path,
         authorId: session.user.id,
       },
       include: {
