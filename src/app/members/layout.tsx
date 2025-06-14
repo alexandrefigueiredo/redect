@@ -22,9 +22,9 @@ export default async function MembersLayout({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
               <Link
-                  href="/members"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
-                >
+                href="/members"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
+              >
                 RedeCT - Área de Membros
               </Link>
               <Link
@@ -44,6 +44,18 @@ export default async function MembersLayout({
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Arquivos
+              </Link>
+              <Link
+                href="/members/certificates"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Certificados
+              </Link>
+              <Link
+                href="/members/payments"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Pagamentos
               </Link>
             </div>
             <div className="flex items-center space-x-4">

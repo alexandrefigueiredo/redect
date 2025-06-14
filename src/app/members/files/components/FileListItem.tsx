@@ -8,7 +8,7 @@ type FileWithAuthor = {
   name: string;
   type: string;
   size: number;
-  path: string;
+  path?: string;
   createdAt: Date;
   author: {
     name: string | null;

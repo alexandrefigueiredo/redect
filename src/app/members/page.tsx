@@ -78,6 +78,46 @@ export default async function MembersPage() {
             </div>
           </div>
         </div>
+
+        {/* Certificados */}
+        <div className="bg-white shadow sm:rounded-lg">
+          <div className="px-4 py-5 sm:p-6">
+            <h3 className="text-lg font-medium text-gray-900">
+              Gerenciar Certificados
+            </h3>
+            <div className="mt-2 max-w-xl text-sm text-gray-500">
+              <p>Adicione e gerencie seus certificados.</p>
+            </div>
+            <div className="mt-5">
+              <Link
+                href="/members/certificates"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Gerenciar Certificados
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Pagamentos */}
+        <div className="bg-white shadow sm:rounded-lg">
+          <div className="px-4 py-5 sm:p-6">
+            <h3 className="text-lg font-medium text-gray-900">
+              Gerenciar Pagamentos
+            </h3>
+            <div className="mt-2 max-w-xl text-sm text-gray-500">
+              <p>Acompanhe seu histórico de pagamentos.</p>
+            </div>
+            <div className="mt-5">
+              <Link
+                href="/members/payments"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Gerenciar Pagamentos
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

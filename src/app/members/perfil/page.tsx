@@ -6,6 +6,39 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Image from "next/image";
+import Link from "next/link";
+
+type News = {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  imageUrl?: string;
+  publishedAt: string;
+  authorId: string;
+};
+
+type Portfolio = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  imageUrl?: string;
+  technologies: string;
+  link?: string;
+  authorId: string;
+};
+
+type File = {
+  id: string;
+  name: string;
+  description?: string;
+  url: string;
+  type: string;
+  size: number;
+  createdAt: string;
+  authorId: string;
+};
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -25,6 +58,11 @@ export default function ProfilePage() {
     confirmPassword: "",
   });
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [userContent, setUserContent] = useState({
+    news: [] as News[],
+    portfolio: [] as Portfolio[],
+    files: [] as File[],
+  });
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -44,8 +82,35 @@ export default function ProfilePage() {
           ? format(new Date(session.user.birthDate), "yyyy-MM-dd")
           : "",
       });
+
+      // Fetch user's content
+      fetchUserContent();
     }
   }, [session]);
+
+  const fetchUserContent = async () => {
+    try {
+      const [newsRes, portfolioRes, filesRes] = await Promise.all([
+        fetch("/api/members/news"),
+        fetch("/api/members/portfolio"),
+        fetch("/api/members/files"),
+      ]);
+
+      const [news, portfolio, files] = await Promise.all([
+        newsRes.json(),
+        portfolioRes.json(),
+        filesRes.json(),
+      ]);
+
+      setUserContent({
+        news: news.filter((item: News) => item.authorId === session?.user?.id),
+        portfolio: portfolio.filter((item: Portfolio) => item.authorId === session?.user?.id),
+        files: files.filter((item: File) => item.authorId === session?.user?.id),
+      });
+    } catch (error) {
+      console.error("Error fetching user content:", error);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -140,13 +205,15 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Perfil</h1>
-          <p className="mt-1 text-sm text-gray-400">
-            Gerencie suas informações pessoais.
-          </p>
+    <div className="space-y-8">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">Perfil</h1>
+            <p className="mt-1 text-sm text-gray-400">
+              Gerencie suas informações pessoais.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -383,6 +450,152 @@ export default function ProfilePage() {
               </div>
             </form>
           )}
+        </div>
+      </div>
+
+      {/* News Section */}
+      <div className="bg-gray-800 shadow rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-white">Minhas Notícias</h2>
+            <Link
+              href="/members/news/new"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#BE382A] hover:bg-[#A32E22] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#BE382A]"
+            >
+              Nova Notícia
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {userContent.news.map((news) => (
+              <div key={news.id} className="bg-gray-700 rounded-lg overflow-hidden">
+                {news.imageUrl && (
+                  <div className="relative h-48">
+                    <Image
+                      src={news.imageUrl}
+                      alt={news.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">{news.title}</h3>
+                  <p className="text-sm text-gray-300 mb-4">
+                    {news.content.length > 150
+                      ? `${news.content.substring(0, 150)}...`
+                      : news.content}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-400">
+                      {format(new Date(news.publishedAt), "dd/MM/yyyy")}
+                    </span>
+                    <Link
+                      href={`/members/news/${news.id}/edit`}
+                      className="text-[#BE382A] hover:text-[#A32E22]"
+                    >
+                      Editar
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Portfolio Section */}
+      <div className="bg-gray-800 shadow rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-white">Meu Portfólio</h2>
+            <Link
+              href="/members/portfolio/new"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#BE382A] hover:bg-[#A32E22] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#BE382A]"
+            >
+              Novo Projeto
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {userContent.portfolio.map((project) => (
+              <div key={project.id} className="bg-gray-700 rounded-lg overflow-hidden">
+                {project.imageUrl && (
+                  <div className="relative h-48">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">{project.title}</h3>
+                  <p className="text-sm text-gray-300 mb-4">
+                    {project.description.length > 150
+                      ? `${project.description.substring(0, 150)}...`
+                      : project.description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-400">{project.technologies}</span>
+                    <Link
+                      href={`/members/portfolio/${project.id}/edit`}
+                      className="text-[#BE382A] hover:text-[#A32E22]"
+                    >
+                      Editar
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Files Section */}
+      <div className="bg-gray-800 shadow rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-white">Meus Arquivos</h2>
+            <Link
+              href="/members/files/new"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#BE382A] hover:bg-[#A32E22] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#BE382A]"
+            >
+              Novo Arquivo
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {userContent.files.map((file) => (
+              <div key={file.id} className="bg-gray-700 rounded-lg overflow-hidden">
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">{file.name}</h3>
+                  {file.description && (
+                    <p className="text-sm text-gray-300 mb-4">{file.description}</p>
+                  )}
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-400">
+                      {format(new Date(file.createdAt), "dd/MM/yyyy")}
+                    </span>
+                    <div className="flex space-x-2">
+                      <a
+                        href={file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#BE382A] hover:text-[#A32E22]"
+                      >
+                        Download
+                      </a>
+                      <Link
+                        href={`/members/files/${file.id}/edit`}
+                        className="text-[#BE382A] hover:text-[#A32E22]"
+                      >
+                        Editar
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

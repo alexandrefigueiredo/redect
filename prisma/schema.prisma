@@ -29,6 +29,8 @@ model User {
   news          News[]
   portfolio     Portfolio[]
   files         File[]
+  certificates  Certificate[]
+  payments      Payment[]
   resetTokens   PasswordResetToken[]
 }
 
@@ -111,4 +113,35 @@ model File {
   updatedAt   DateTime @updatedAt
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
+}
+
+model Certificate {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  issueDate   DateTime
+  issuer      String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([authorId])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  amount      Float
+  date        DateTime
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([authorId])
+  @@index([status])
 }
